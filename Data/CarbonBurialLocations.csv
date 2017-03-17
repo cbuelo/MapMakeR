@@ -1,0 +1,111 @@
+"Ecosystem_Type","Lat","Lon","N"
+"Coastal Wetland",40,-125,1
+"Coastal Wetland",40,-120,4
+"Continental Shelf",40,-120,2
+"Lake",40,-120,2
+"Lake",55,-115,4
+"Lagoon",25,-110,1
+"Mangrove",15,-95,1
+"Coastal Wetland",30,-95,2
+"Lake",40,-95,4
+"Reservoir ",40,-95,6
+"Lake",45,-95,135
+"Lake",50,-95,22
+"Lake",15,-90,1
+"Lagoon",20,-90,2
+"Mangrove",20,-90,3
+"Coastal Wetland",30,-90,8
+"Reservoir ",40,-90,1
+"Lake",45,-90,8
+"Lake",50,-90,21
+"Inland Wetland",10,-85,3
+"Inland Wetland",30,-85,2
+"Inland Wetland",40,-85,4
+"Reservoir ",40,-85,1
+"Lake",45,-85,6
+"Mangrove",25,-80,2
+"Coastal Wetland",30,-80,3
+"Coastal Wetland",35,-80,1
+"Inland Wetland",35,-80,1
+"Lake",45,-80,1
+"Coastal Wetland",35,-75,1
+"Lagoon",35,-75,1
+"Coastal Wetland",40,-75,8
+"Continental Shelf",-40,-70,1
+"Continental Shelf",50,-70,1
+"Lake",50,-70,11
+"Lake",-20,-65,1
+"Coastal Wetland",45,-65,1
+"Lagoon",15,-60,2
+"Lake",0,-55,1
+"Mangrove",-25,-50,2
+"Reservoir ",-20,-50,2
+"Lake",65,-50,7
+"Mangrove",-25,-45,1
+"Reservoir ",-25,-45,1
+"Reservoir ",-20,-45,2
+"Continental Shelf",-25,-40,1
+"Reservoir ",-5,-35,1
+"Continental Shelf",75,-20,1
+"Lake",55,-10,7
+"Lake",50,-5,4
+"Lake",55,-5,34
+"Lake",60,-5,4
+"Lake",45,0,1
+"Lake",50,0,1
+"Reservoir ",50,0,1
+"Lake",55,0,5
+"Lake",45,5,3
+"Reservoir ",45,5,1
+"Inland Wetland",50,5,1
+"Lake",50,5,1
+"Lake",60,5,1
+"Lake",45,10,4
+"Lake",50,10,1
+"Lake",55,10,12
+"Lake",60,10,3
+"Continental Shelf",80,10,1
+"Continental Shelf",45,15,1
+"Lake",45,15,4
+"Lake",55,15,2
+"Lake",60,15,7
+"Continental Shelf",75,15,1
+"Continental Shelf",55,20,1
+"Continental Shelf",60,20,2
+"Continental Shelf",65,20,1
+"Lake",65,20,1
+"Lake",70,20,2
+"Inland Wetland",-20,25,1
+"Continental Shelf",60,25,2
+"Lake",35,35,1
+"Continental Shelf",10,80,1
+"Mangrove",10,80,1
+"Reservoir ",20,85,6
+"Lake",40,85,1
+"Continental Shelf",30,90,1
+"Mangrove",5,100,1
+"Mangrove",10,100,1
+"Reservoir ",20,100,2
+"Mangrove",10,105,2
+"Lake",55,105,1
+"Mangrove",20,110,2
+"Lake",30,110,1
+"Continental Shelf",20,115,2
+"Mangrove",25,115,1
+"Lake",30,115,8
+"Lagoon",-35,120,1
+"Continental Shelf",25,120,1
+"Lake",30,120,6
+"Coastal Wetland",35,120,1
+"Continental Shelf",30,125,2
+"Continental Shelf",35,125,1
+"Lagoon",35,125,1
+"Continental Shelf",35,130,2
+"Mangrove",5,135,1
+"Mangrove",10,135,1
+"Continental Shelf",-20,145,1
+"Mangrove",-20,145,2
+"Coastal Wetland",-35,150,1
+"Mangrove",-35,150,1
+"Lagoon",-30,150,1
+"Lagoon",-30,155,2
