@@ -14,31 +14,50 @@ shinyServer(function(input, output) {
   #     when inputs change
   #  2) Its output type is a plot
 
-  
-
-  output$tsPlot <- renderPlot({
-  	datSource = reactive(input$select)
+  getData <- reactive({
+    datSource = reactive(input$select)
     output$value = datSource
-  	if(datSource() == "cities"){
-  	 dat = read.csv("./Data/LargestCities.csv", stringsAsFactors=FALSE)
-	  }else if(datSource() == "cburial"){
-	   dat = read.csv("./Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
-	  }else if(datSource() == "my"){
+    if(datSource() == "cities"){
+     dat = read.csv("./Data/LargestCities.csv", stringsAsFactors=FALSE)
+    }else if(datSource() == "cburial"){
+     dat = read.csv("./Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
+    }else if(datSource() == "my"){
       inFile = reactive(input$fileIn)
       dat = read.csv(inFile()$datapath, stringsAsFactors=FALSE)
     }
-    #output$value2 = reactive(dat[1,2])
-    colNames = colnames(dat)
+    output$value2 = reactive(dat[1,2])
+    return(dat)
+})
+
+  getLatLon <- reactive({
+    LatLon_vector = c(input$lat, input$lon)
+    return(LatLon_vector)
+})
+
+  
+
+  output$tsPlot <- renderPlot({
+    datPlot = getData()
+    colNames = colnames(datPlot)
     names(colNames) = colNames
-    output$columns = renderUI({
+    output$columnLat = renderUI({
       selectInput("lat", label = h3("Choose latitude column"), 
-          choices = colNames, selected = 1)
+          choices = colNames)
+      })
+    output$columnLon = renderUI({
+      selectInput("lon", label = h3("Choose longitude column"), 
+          choices = colNames)
     })
-    #lat = reactive(input$columns)
+  	
+    colsPlot = getLatLon() 
+   
+    
+    
+    #output$Lat = reactive(input$columns)
     
 
 	  # output$value = renderPrint({ dat[1,2] })
-    plot(lynx)
+    hist(datPlot[,colsPlot])
 	    # draw the plot with the specified line width
 	    # hist(dat[,3])
 	  # plot(input$selectedData[,3])

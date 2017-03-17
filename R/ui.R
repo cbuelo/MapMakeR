@@ -25,11 +25,12 @@ shinyUI(fluidPage(
 	 			#  fluidRow(column(4, verbatimTextOutput("value")))
 	  		)
 	  		,
+	  		uiOutput("columnLat"),
+	  		uiOutput("columnLon"),
 	  		fluidRow(column(3, verbatimTextOutput("value2"))),
 	  		hr(),
-	  		uiOutput("columns"),
-	  		hr()#,
-	  		#fluidRow(column(3, verbatimTextOutput("value2")))
+	  		hr(),
+	  		fluidRow(column(3, verbatimTextOutput("Lat")))
 		),
     	# Show a plot of the generated distribution
 	    mainPanel(
