@@ -6,24 +6,31 @@ library(shiny)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
-  # Application title
-  titlePanel("Plot lynx!"),
+	# Application title
+	titlePanel("Plot lynx!"),
 
-  # Sidebar with a slider input for the number of bins
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("select", label = h3("Choose data source"), 
-    choices = list("Example: Largest Cities" = "cities", "Example: Carbon Burial" = "cburial", "Use my own data" = "my"), 
-    selected = 1),
-
-      hr(),
-  fluidRow(column(3, verbatimTextOutput("value")))
-  
-),
-
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("tsPlot")
-    )
-  )
- ))
+	# Sidebar with a slider input for the number of bins
+	sidebarLayout(
+    	sidebarPanel(
+    		selectInput("select", label = h3("Choose data source"), 
+	    		choices = list("Example: Largest Cities" = "cities", "Example: Carbon Burial" = "cburial", "Use my own data" = "my"), selected = 1
+	    	),
+	    	hr(),
+	  		fluidRow(column(3, verbatimTextOutput("value"))),
+	  		hr(),
+	  		conditionalPanel(
+	  		 	condition = "input.select == 'my'",
+	  		 	fileInput("file", label = h3("File input")),
+	  		 	hr()
+	 			#  fluidRow(column(4, verbatimTextOutput("value")))
+	  		)
+	  		,
+	  		fluidRow(column(3, verbatimTextOutput("value2")))
+		),
+    	# Show a plot of the generated distribution
+	    mainPanel(
+	      plotOutput("tsPlot")
+	    )
+	)
+)
+)

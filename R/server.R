@@ -14,19 +14,27 @@ shinyServer(function(input, output) {
   #     when inputs change
   #  2) Its output type is a plot
 
-  datSource = reactive(input$select)
-  # if(datSource == "cities"){
-  # 	dat = read.csv("../Data/LargestCities.csv", stringsAsFactors=FALSE)
-  # }if(datSource == "cburial"){
-  # 	dat = read.csv("../Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
-  # }
-
-  output$value = renderPrint({ input$select })
+  
 
   output$tsPlot <- renderPlot({
+  	datSource = reactive(input$select)
+    output$value = datSource
+  	if(datSource() == "cities"){
+  	 dat = read.csv("./Data/LargestCities.csv", stringsAsFactors=FALSE)
+	  }else if(datSource() == "cburial"){
+	   dat = read.csv("./Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
+	  }else if(datSource() == "my"){
+       dat = input$file
+       # output$value <- renderPrint({str(input$file)}
+  }
+    output$value2 = reactive(dat[1,2])
+    
 
-    # draw the plot with the specified line width
-    # hist(dat[,3])
-   plot(lynx, lwd = input$width)
-  })
+	  # output$value = renderPrint({ dat[1,2] })
+    plot(lynx)
+	    # draw the plot with the specified line width
+	    # hist(dat[,3])
+	  # plot(input$selectedData[,3])
+
+	  })
 })
