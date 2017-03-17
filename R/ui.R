@@ -20,12 +20,16 @@ shinyUI(fluidPage(
 	  		hr(),
 	  		conditionalPanel(
 	  		 	condition = "input.select == 'my'",
-	  		 	fileInput("file", label = h3("File input")),
+	  		 	fileInput("fileIn", label = h3("File input")),
 	  		 	hr()
 	 			#  fluidRow(column(4, verbatimTextOutput("value")))
 	  		)
 	  		,
-	  		fluidRow(column(3, verbatimTextOutput("value2")))
+	  		fluidRow(column(3, verbatimTextOutput("value2"))),
+	  		hr(),
+	  		uiOutput("columns"),
+	  		hr()#,
+	  		#fluidRow(column(3, verbatimTextOutput("value2")))
 		),
     	# Show a plot of the generated distribution
 	    mainPanel(

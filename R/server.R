@@ -24,10 +24,17 @@ shinyServer(function(input, output) {
 	  }else if(datSource() == "cburial"){
 	   dat = read.csv("./Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
 	  }else if(datSource() == "my"){
-       dat = input$file
-       # output$value <- renderPrint({str(input$file)}
-  }
-    output$value2 = reactive(dat[1,2])
+      inFile = reactive(input$fileIn)
+      dat = read.csv(inFile()$datapath, stringsAsFactors=FALSE)
+    }
+    #output$value2 = reactive(dat[1,2])
+    colNames = colnames(dat)
+    names(colNames) = colNames
+    output$columns = renderUI({
+      selectInput("lat", label = h3("Choose latitude column"), 
+          choices = colNames, selected = 1)
+    })
+    #lat = reactive(input$columns)
     
 
 	  # output$value = renderPrint({ dat[1,2] })
