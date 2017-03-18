@@ -2,6 +2,7 @@
 # Cal Buelo, 3/16/17
 
 library(shiny)
+library(ggplot2)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -25,7 +26,7 @@ shinyUI(fluidPage(
 		),
     	# Show a plot of the generated distribution
 	    mainPanel(
-	      verbatimTextOutput("tsPlot")
+	      plotOutput("tsPlot")
 	    )
 	)
 )

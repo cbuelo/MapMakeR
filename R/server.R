@@ -35,7 +35,7 @@ shinyServer(function(input, output) {
   })
   # create a vector of the column names that have lat and lon
   getLatLon <- reactive({
-    LatLon_vector = c(input$lat, input$lon)
+    LatLon_vector = c(input$lon, input$lat)
     return(LatLon_vector)
   })
   # get just the data you want from above
@@ -45,9 +45,16 @@ shinyServer(function(input, output) {
     return(df[,cols])
   })
   #output the data you want to UI
-  output$tsPlot <- renderPrint({
+  output$tsPlot <- renderPlot({
   	datPlot = getPlotCols()
-    colsPlot = str(datPlot)
-    colsPlot 
+    if(all(is.numeric(datPlot[,1]))& all(is.numeric(datPlot[,2]))){
+      mp_range = NULL
+      mapWorld = borders(database="world",colour="gray70", fill="gray") # create a layer of borders
+      mp_range = ggplot() +  mapWorld 
+      mp_range = mp_range + geom_point(aes(x=datPlot[,1], y=datPlot[,2]))
+      mp_range
+    }
+    # colsPlot = str(datPlot)
+    # colsPlot 
 	})
 })
