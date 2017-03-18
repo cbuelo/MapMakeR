@@ -7,7 +7,7 @@ library(shiny)
 shinyUI(fluidPage(
 
 	# Application title
-	titlePanel("Plot lynx!"),
+	titlePanel("MapMakeR"),
 
 	# Sidebar with a slider input for the number of bins
 	sidebarLayout(
@@ -15,26 +15,17 @@ shinyUI(fluidPage(
     		selectInput("select", label = h3("Choose data source"), 
 	    		choices = list("Example: Largest Cities" = "cities", "Example: Carbon Burial" = "cburial", "Use my own data" = "my"), selected = 1
 	    	),
-	    	hr(),
-	  		fluidRow(column(3, verbatimTextOutput("value"))),
-	  		hr(),
 	  		conditionalPanel(
 	  		 	condition = "input.select == 'my'",
-	  		 	fileInput("fileIn", label = h3("File input")),
-	  		 	hr()
-	 			#  fluidRow(column(4, verbatimTextOutput("value")))
+	  		 	fileInput("fileIn", label = h3("File input"))
 	  		)
 	  		,
 	  		uiOutput("columnLat"),
-	  		uiOutput("columnLon"),
-	  		fluidRow(column(3, verbatimTextOutput("value2"))),
-	  		hr(),
-	  		hr(),
-	  		fluidRow(column(3, verbatimTextOutput("Lat")))
+	  		uiOutput("columnLon")#,
 		),
     	# Show a plot of the generated distribution
 	    mainPanel(
-	      plotOutput("tsPlot")
+	      verbatimTextOutput("tsPlot")
 	    )
 	)
 )

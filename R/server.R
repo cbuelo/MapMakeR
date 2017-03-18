@@ -1,22 +1,12 @@
 # Server script for MapMakeR shiny app
 # Cal Buelo, 3/16/17
 
-
 library(shiny)
 
-# Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
-  # Expression that generates a histogram. The expression is
-  # wrapped in a call to renderPlot to indicate that:
-  #
-  #  1) It is "reactive" and therefore should re-execute automatically
-  #     when inputs change
-  #  2) Its output type is a plot
-
-  getData <- reactive({
+  # get the data source you want
+  getDataFrame <- reactive({
     datSource = reactive(input$select)
-    output$value = datSource
     if(datSource() == "cities"){
      dat = read.csv("./Data/LargestCities.csv", stringsAsFactors=FALSE)
     }else if(datSource() == "cburial"){
@@ -25,42 +15,39 @@ shinyServer(function(input, output) {
       inFile = reactive(input$fileIn)
       dat = read.csv(inFile()$datapath, stringsAsFactors=FALSE)
     }
-    output$value2 = reactive(dat[1,2])
     return(dat)
-})
-
+  })
+  # make UI element to select latitude column from data source above
+  output$columnLat = renderUI({
+    datPlot = getDataFrame()
+    colNames = colnames(datPlot)
+    names(colNames) = colNames
+    selectInput("lat", label = h3("Choose latitude column"), 
+          choices = colNames, selected=4)
+  })
+  # make UI element to select latitude column from data source above
+  output$columnLon = renderUI({
+    datPlot = getDataFrame()
+    colNames = colnames(datPlot)
+    names(colNames) = colNames
+    selectInput("lon", label = h3("Choose longitude column"), 
+         choices = colNames, selected=5)
+  })
+  # create a vector of the column names that have lat and lon
   getLatLon <- reactive({
     LatLon_vector = c(input$lat, input$lon)
     return(LatLon_vector)
-})
-
-  
-
-  output$tsPlot <- renderPlot({
-    datPlot = getData()
-    colNames = colnames(datPlot)
-    names(colNames) = colNames
-    output$columnLat = renderUI({
-      selectInput("lat", label = h3("Choose latitude column"), 
-          choices = colNames)
-      })
-    output$columnLon = renderUI({
-      selectInput("lon", label = h3("Choose longitude column"), 
-          choices = colNames)
-    })
-  	
-    colsPlot = getLatLon() 
-   
-    
-    
-    #output$Lat = reactive(input$columns)
-    
-
-	  # output$value = renderPrint({ dat[1,2] })
-    hist(datPlot[,colsPlot])
-	    # draw the plot with the specified line width
-	    # hist(dat[,3])
-	  # plot(input$selectedData[,3])
-
-	  })
+  })
+  # get just the data you want from above
+  getPlotCols = reactive({
+    df = getDataFrame()
+    cols = getLatLon()
+    return(df[,cols])
+  })
+  #output the data you want to UI
+  output$tsPlot <- renderPrint({
+  	datPlot = getPlotCols()
+    colsPlot = str(datPlot)
+    colsPlot 
+	})
 })
