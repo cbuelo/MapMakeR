@@ -19,14 +19,25 @@ shinyUI(fluidPage(
 	  		conditionalPanel(
 	  		 	condition = "input.select == 'my'",
 	  		 	fileInput("fileIn", label = h3("File input"))
-	  		)
-	  		,
-	  		uiOutput("columnLat"),
-	  		uiOutput("columnLon")#,
+	  		),
+	  		fluidRow(
+	  			column(6, uiOutput("columnLat")),
+	  			column(6, uiOutput("columnLon"))
+	  		),
+	  		hr(),
+	  		h3("Customize Plot"),
+	  		fluidRow(
+		  		column(6, numericInput("width", label="Map Width (px):", value=990, width="90%")),
+		  		column(6, numericInput("height", label="Map Height (px):", value=600, width="90%"))
+	  		),
+	  		hr(),
+	  		h3("Download Map"),
+	  		textInput(inputId ="saveFN", label="Filename", value="myMap"),
+	      	downloadButton(outputId = "downloadPlot", label = "Download the plot")
 		),
     	# Show a plot of the generated distribution
 	    mainPanel(
-	      plotOutput("tsPlot")
+	      uiOutput("plot.ui")
 	    )
 	)
 )
