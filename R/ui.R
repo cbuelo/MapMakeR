@@ -6,6 +6,8 @@ library(ggplot2)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
+	#specify CSS
+	# tags$style(type='text/css', ".selectize-input { line-height: 40px;} .selectize-dropdown { line-height: 10px; }"),
 
 	# Application title
 	titlePanel("MapMakeR"),
@@ -13,7 +15,7 @@ shinyUI(fluidPage(
 	# Sidebar with a slider input for the number of bins
 	sidebarLayout(
     	sidebarPanel(
-    		selectInput("select", label = h3("Choose data source"), 
+    		selectInput("select", label = h2("Choose data source"), 
 	    		choices = list("Example: Largest Cities" = "cities", "Example: Carbon Burial" = "cburial", "Use my own data" = "my"), selected = 1
 	    	),
 	  		conditionalPanel(
@@ -25,13 +27,17 @@ shinyUI(fluidPage(
 	  			column(6, uiOutput("columnLon"))
 	  		),
 	  		hr(),
-	  		h3("Customize Plot"),
+	  		h2("Customize Plot"),
 	  		fluidRow(
-		  		column(6, numericInput("width", label="Map Width (px):", value=990, width="90%")),
-		  		column(6, numericInput("height", label="Map Height (px):", value=600, width="90%"))
+		  		column(6, numericInput("width", label=h4("Map Width (px):"), value=990, width="90%")),
+		  		column(6, numericInput("height", label=h4("Map Height (px):"), value=600, width="90%"))
+	  		),
+	  		fluidRow(
+		  		column(6, uiOutput("pointSize")),
+		  		column(6, uiOutput("pointColor"))
 	  		),
 	  		hr(),
-	  		h3("Download Map"),
+	  		h2("Download Map"),
 	  		textInput(inputId ="saveFN", label="Filename", value="myMap"),
 	      	downloadButton(outputId = "downloadPlot", label = "Download the plot")
 		),

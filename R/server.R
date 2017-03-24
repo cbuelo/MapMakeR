@@ -22,7 +22,7 @@ shinyServer(function(input, output) {
     datPlot = getDataFrame()
     colNames = colnames(datPlot)
     names(colNames) = colNames
-    selectInput("lat", label = h3("Latitude column"), 
+    selectInput("lat", label = h4("Latitude column"), 
           choices = colNames, selected="latitude", width="90%")
   })
   # make UI element to select latitude column from data source above
@@ -30,7 +30,22 @@ shinyServer(function(input, output) {
     datPlot = getDataFrame()
     colNames = colnames(datPlot)
     names(colNames) = colNames
-    selectInput("lon", label = h3("Longitude column"), 
+    selectInput("lon", label = h4("Longitude column"), 
+         choices = colNames, selected="longitude", width="90%")
+  })
+  output$pointSize = renderUI({
+    datPlot = getDataFrame()
+    colNames = colnames(datPlot)
+    names(colNames) = colNames
+    selectInput("size", label = h4("Point size column"), 
+          choices = colNames, selected="latitude", width="90%")
+  })
+  # make UI element to select latitude column from data source above
+  output$pointColor = renderUI({
+    datPlot = getDataFrame()
+    colNames = colnames(datPlot)
+    names(colNames) = colNames
+    selectInput("color", label = h4("Point color column"), 
          choices = colNames, selected="longitude", width="90%")
   })
   # create a vector of the column names that have lat and lon
@@ -38,11 +53,20 @@ shinyServer(function(input, output) {
     LatLon_vector = c(input$lon, input$lat)
     return(LatLon_vector)
   })
+
+  # create a vector of the column names that have lat and lon
+  getPointSizeColor <- reactive({
+    Point_vector = c(input$size, input$color)
+    return(Point_vector)
+  })
+
   # get just the data you want from above
   getPlotCols = reactive({
     df = getDataFrame()
-    cols = getLatLon()
-    return(df[,cols])
+    LatLonCols = getLatLon()
+    PointCols = getPointSizeColor()
+    outCols = c(LatLonCols, PointCols)
+    return(df[,outCols])
   })
 
   #make the plot
@@ -52,7 +76,7 @@ shinyServer(function(input, output) {
         mp_range = NULL
         mapWorld = borders(database="world",colour="gray70", fill="gray") # create a layer of borders
         mp_range = ggplot() +  mapWorld 
-        mp_range = mp_range + geom_point(aes(x=datPlot[,1], y=datPlot[,2]))
+        mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat], size=datPlot[,input$size], color=datPlot[,input$color]))
         return(mp_range)
       }
   })
