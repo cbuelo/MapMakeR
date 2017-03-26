@@ -29,7 +29,7 @@ shinyUI(fluidPage(
 	  		hr(),
 	  		h2("Customize Plot"),
 	  		fluidRow(
-		  		column(6, numericInput("width", label=h4("Map Width (px):"), value=990, width="90%")),
+		  		column(6, numericInput("width", label=h4("Map Width (px):"), value=1200, width="90%")),
 		  		column(6, numericInput("height", label=h4("Map Height (px):"), value=600, width="90%"))
 	  		),
 	  		fluidRow(

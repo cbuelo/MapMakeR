@@ -35,18 +35,18 @@ shinyServer(function(input, output) {
   })
   output$pointSize = renderUI({
     datPlot = getDataFrame()
-    colNames = colnames(datPlot)
+    colNames = c("None",colnames(datPlot))
     names(colNames) = colNames
     selectInput("size", label = h4("Point size column"), 
-          choices = colNames, selected="latitude", width="90%")
+          choices = colNames, selected="population", width="90%")
   })
   # make UI element to select latitude column from data source above
   output$pointColor = renderUI({
     datPlot = getDataFrame()
-    colNames = colnames(datPlot)
+    colNames = c("None", colnames(datPlot))
     names(colNames) = colNames
     selectInput("color", label = h4("Point color column"), 
-         choices = colNames, selected="longitude", width="90%")
+         choices = colNames, selected="country", width="90%")
   })
   # create a vector of the column names that have lat and lon
   getLatLon <- reactive({
@@ -56,7 +56,13 @@ shinyServer(function(input, output) {
 
   # create a vector of the column names that have lat and lon
   getPointSizeColor <- reactive({
-    Point_vector = c(input$size, input$color)
+    Point_vector = c()
+    if(input$size != "None"){
+      Point_vector = c(Point_vector, input$size)
+    }
+    if(input$color != "None"){
+      Point_vector = c(Point_vector, input$color)
+    }
     return(Point_vector)
   })
 
@@ -72,28 +78,36 @@ shinyServer(function(input, output) {
   #make the plot
   plotInput = reactive({
     datPlot = getPlotCols()
-      if(all(is.numeric(datPlot[,1]))& all(is.numeric(datPlot[,2]))){
+      if(all(is.numeric(datPlot[,input$lat]))& all(is.numeric(datPlot[,input$lon]))){
         mp_range = NULL
         mapWorld = borders(database="world",colour="gray70", fill="gray") # create a layer of borders
-        mp_range = ggplot() +  mapWorld 
-        mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat], size=datPlot[,input$size], color=datPlot[,input$color]))
+        mp_range = ggplot() +  mapWorld
+        if(input$size != "None" & input$color != "None"){
+          mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat], size=datPlot[,input$size], fill=datPlot[,input$color]), pch=21)
+          mp_range = mp_range + labs(size = input$size) + labs(fill = input$color)
+
+          if(class(datPlot[,input$color]) == "character"){
+            mp_range = mp_range + guides(size = guide_legend(), fill = guide_legend(override.aes = list(size=4)))
+          }
+          if(class(datPlot[,input$color]) == "numeric"){
+            mp_range = mp_range + guides(size = guide_legend(), fill = guide_colourbar())
+          }
+        }else if(input$size != "None" & input$color == "None"){
+          mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat], size=datPlot[,input$size]), pch=21)
+          mp_range = mp_range + labs(size = input$size)
+        }else if(input$size == "None" & input$color != "None"){
+          mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat], fill=datPlot[,input$color]), pch=21)
+          mp_range = mp_range + labs(fill = input$color)
+         }else{
+          mp_range = mp_range + geom_point(aes(x=datPlot[,input$lon], y=datPlot[,input$lat]), pch=21)
+         }
         return(mp_range)
       }
   })
 
   #make the plot
   output$plot <- renderPlot({
-  	# datPlot = getPlotCols()
-   #  if(all(is.numeric(datPlot[,1]))& all(is.numeric(datPlot[,2]))){
-   #    mp_range = NULL
-   #    mapWorld = borders(database="world",colour="gray70", fill="gray") # create a layer of borders
-   #    mp_range = ggplot() +  mapWorld 
-   #    mp_range = mp_range + geom_point(aes(x=datPlot[,1], y=datPlot[,2]))
-   #    mp_range
-   #  }
    plotInput()
-    # colsPlot = str(datPlot)
-    # colsPlot 
 	})
 
   #make the plot UI element
