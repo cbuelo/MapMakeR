@@ -9,7 +9,7 @@ Will eventually be made into an R package for download via GitHub and CRAN. For 
 2. Download "MapMakeR" application from GitHub
 	* https://github.com/cbuelo/MapMakeR
 3. Set working directory to "R" folder within "MapMakeR"
-	* ex: setwd("path/to/MapeMakeR/R"), or with RStudio or other IDE menu
+	* ex: setwd("path/to/MapMakeR/R"), or with RStudio or other IDE menu
 4. Run these lines in R:
 	* library(shiny)
 	* runApp()
