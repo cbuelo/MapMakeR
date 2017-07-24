@@ -12,6 +12,9 @@ shinyServer(function(input, output) {
     }else if(datSource() == "cburial"){
      dat = read.csv("./Data/CarbonBurialLocations.csv", stringsAsFactors=FALSE)
     }else if(datSource() == "my"){
+      validate(
+      	need(input$fileIn != "", "Please upload a data file")
+      	)
       inFile = reactive(input$fileIn)
       dat = read.csv(inFile()$datapath, stringsAsFactors=FALSE)
     }
